@@ -88,6 +88,10 @@ class AVL{
 		AVL(Nodo * n);
 		
 		//metodos generales
+		int getAltura(){
+			return this->raiz->getAlturaNodo();
+		}
+		
 		bool search(string p, Nodo * origen){
 			string palabraNodo = origen->getPalabra();
 			if(palabraNodo == p){
@@ -156,6 +160,5 @@ int main(){
 	avl->insertar("jose", avl->getRaiz());
 	cout << (avl->search("jose",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
 	cout << "_________________\n";
-	cout << "Altura Arbol: " << avl->getRaiz()->getAlturaNodo() << endl;
-	cout << avl->getRaiz()->getHI()->getPalabra();
+	cout << "Altura Arbol: " << avl->getAltura() << endl;
 }
