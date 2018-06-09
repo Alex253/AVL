@@ -19,16 +19,20 @@ class Nodo{
 			this->repeticiones += 1;
 		}
 		int getAlturaNodo(){
-			//Si ambos fueron seteados devuelve el mayor
-			if(this->hd != NULL && this->hi != NULL){
-				return (this->hd->getAlturaNodo() >= this->hi->getAlturaNodo()) ?
-						1 + this->hd->getAlturaNodo() :
-						1 + this->hi->getAlturaNodo();
-			}else if(this->hd == NULL && this->hi != NULL){
-				return 1 + this->hi->getAlturaNodo();
-			}else if(this->hd != NULL && this->hi == NULL){
+			if (this->hd != NULL && this->hi != NULL){
+				cout << "Tiene 2 Hijos";
+				int alturaDerecha = this->hd->getAlturaNodo();
+				int alturaIzquierda = this->hi->getAlturaNodo();
+				return 1 + (alturaDerecha >= alturaIzquierda ?
+										alturaDerecha : alturaIzquierda);
+			}else if(this->hd){
+				cout << "Existe el hijo derecho.";
+				return 1 + this->hd->getAlturaNodo();
+			}else if(this->hi){
+				cout << "Exite el hijo izquierdo";
 				return 1 + this->hi->getAlturaNodo();
 			}else{
+				cout << "No tiene hijos.";
 				return 1;
 			}
 		}
@@ -141,24 +145,21 @@ AVL::AVL(Nodo * n){
 }
 
 int main(){
-	Nodo *n1 = new Nodo("Juan");
-	Nodo *n2 = new Nodo("Maca");
-	Nodo *n = new Nodo("Alexis");
-	/*
-	cout << "Altura Alexis: " << n->getAlturaNodo() << endl;
-	cout << "Altura Maca: " << n2->getAlturaNodo() << endl;
-	cout << "Altura Juan: " << n1->getAlturaNodo() << endl;
-	*/
+	Nodo *n = new Nodo("alexis");
+	
 	AVL *avl = new AVL(n);
-	cout << avl->search("Alexis", avl->getRaiz());
+	cout << avl->search("alexis", avl->getRaiz());
+	
 	cout << "\n\nInsertar aa\n";
 	avl->insertar("aa", avl->getRaiz());
 	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << "\n\nInsertar Maca\n";
-	avl->insertar("Maca", avl->getRaiz());
-	cout << (avl->search("Maca",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << "\n\nInsertar Jose\n";
-	avl->insertar("Jose", avl->getRaiz());
-	cout << (avl->search("Jose",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	
+	cout << "\n\nInsertar maca\n";
+	avl->insertar("maca", avl->getRaiz());
+	cout << (avl->search("maca",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
+	cout << "\n\nInsertar jose\n";
+	avl->insertar("jose", avl->getRaiz());
+	cout << (avl->search("jose",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
+	cout << "_________________\n";
+	cout << "Altura Arbol: " << avl->getRaiz()->getAlturaNodo() << endl;
+	cout << avl->getRaiz()->getHI()->getPalabra();
 }
