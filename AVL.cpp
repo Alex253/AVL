@@ -121,6 +121,7 @@ class AVL{
 				return search(p, origen->getHD());
 			if(p > palabraNodo && origen->getHD() == NULL)
 				return false;
+			return false;
 		}
 		
 		void insertar(string p, Nodo * origen){
