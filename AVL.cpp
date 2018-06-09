@@ -179,7 +179,13 @@ int main(){
 	cout << "\n\nInsertar berni\n";
 	//avl->insertar("berni", avl->getRaiz());
 	cout << (avl->search("berni",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	
+	cout << "\n\nInsertar aa\n";
+	avl->insertar("aa", avl->getRaiz());
+	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
+	cout << "\n\nInsertar aa\n";
+	avl->insertar("aa", avl->getRaiz());
+	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
+	cout << avl->getRaiz()->getHI()->getRepeticiones() << endl;
 	cout << "_________________\n";
 	cout << "Altura Arbol: " << avl->getAltura() << endl;
 }
