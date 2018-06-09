@@ -30,6 +30,33 @@ class Nodo{
 				return this->hi->getAlturaNodo() == 1;
 			}
 		}
+		/**
+		 *
+		 * Rama derecha desbalanceada
+		 * K2 es el Nodo padre
+		 * X es el nodo hijo izquierdo
+		 * K1 es el nodo hijo derecho (que representa el desbalanceo)
+		 * Y es el nodo hijo izquierdo de K1
+		 * Z es el nodo hijo drecho de K1
+		 *
+		 */
+		bool caso1(){
+			Nodo *k2 = this;
+			Nodo *x = this->getHI();
+			Nodo *k1 = this->getHD();
+			Nodo *y = k1->getHI();
+			Nodo *z = k1->getHD();
+			Nodo *aux;
+			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
+				//DO ROTATE
+				aux = k2;
+				k2->setHI(x);
+				k2->setHD(k1);
+				k1->setHI(y);
+				k1->setHD(z);
+				//this = aux;
+			}
+		}
 		
 		void aumentarRepeticiones(){
 			this->repeticiones += 1;
@@ -162,11 +189,11 @@ AVL::AVL(Nodo * n){
 }
 
 int main(){
-	Nodo *n = new Nodo("alexis");
+	Nodo *n = new Nodo("camila");
 	
 	AVL *avl = new AVL(n);
-	cout << avl->search("alexis", avl->getRaiz());
-	
+	cout << avl->search("camila", avl->getRaiz());
+	/*
 	cout << "\n\nInsertar aa\n";
 	avl->insertar("aa", avl->getRaiz());
 	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
@@ -188,4 +215,18 @@ int main(){
 	cout << avl->getRaiz()->getHI()->getRepeticiones() << endl;
 	cout << "_________________\n";
 	cout << "Altura Arbol: " << avl->getAltura() << endl;
+	*/
+	
+	avl->insertar("berni",avl->getRaiz());
+	avl->insertar("alexis",avl->getRaiz());
+	avl->insertar("botero",avl->getRaiz());
+	avl->insertar("alejo",avl->getRaiz());
+	avl->insertar("fede",avl->getRaiz());
+	
+	cout << "Raiz (Camila): " << avl->getRaiz()->getPalabra() << endl;
+	cout << "HI (Berni): " << avl->getRaiz()->getHI()->getPalabra() << endl;
+	cout << "HD (Fede): " << avl->getRaiz()->getHD()->getPalabra() << endl;
+	cout << "Berni->HI (Alexis): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
+	cout << "Berni->HD (Botero): " << avl->getRaiz()->getHI()->getHD()->getPalabra() << endl;
+	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getHI()->getPalabra() << endl;
 }
