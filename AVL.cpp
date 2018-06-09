@@ -19,20 +19,18 @@ class Nodo{
 			this->repeticiones += 1;
 		}
 		int getAlturaNodo(){
-			//Si ambos hijos no fueron seteados devuelve 1
-			if(this->hd == NULL && this->hi == NULL)
-				return 1;
 			//Si ambos fueron seteados devuelve el mayor
-			if(this->hd != NULL && this->hi != NULL)
-				return (this->hd->getAlturaNodo() > this->hi->getAlturaNodo()) ?
+			if(this->hd != NULL && this->hi != NULL){
+				return (this->hd->getAlturaNodo() >= this->hi->getAlturaNodo()) ?
 						1 + this->hd->getAlturaNodo() :
 						1 + this->hi->getAlturaNodo();
-			//Si el derecho es nulo y el izquierdo no devuelve la altura izq
-			if(this->hd == NULL && this->hi != NULL)
+			}else if(this->hd == NULL && this->hi != NULL){
 				return 1 + this->hi->getAlturaNodo();
-			//Si el izquierdo es nulo y el derecho no, devuelve la altura derecha
-			if(this->hd != NULL && this->hi == NULL)
+			}else if(this->hd != NULL && this->hi == NULL){
 				return 1 + this->hi->getAlturaNodo();
+			}else{
+				return 1;
+			}
 		}
 		//seters
 		void setHD(Nodo * h){
@@ -105,6 +103,25 @@ class AVL{
 				return false;
 		}
 		
+		void insertar(string p, Nodo * origen){
+			string palabraNodo = origen->getPalabra();
+			if(palabraNodo == p){
+				origen->aumentarRepeticiones();
+				return;
+			}
+			if(p < palabraNodo && origen->getHI() != NULL)
+				return insertar(p, origen->getHI());
+			if(p < palabraNodo && origen->getHI() == NULL)
+				//crear un nuevo nodo con la palabra
+				origen->setHI(new Nodo(p));
+			if(p > palabraNodo && origen->getHD() != NULL)
+				return insertar(p, origen->getHD());
+			if(p > palabraNodo && origen->getHD() == NULL)
+				//crear un nuevo nodo con la palabra
+				origen->setHD(new Nodo(p));
+			return;
+		}
+		
 		//getters
 		Nodo * getRaiz(){
 			return this->raiz;
@@ -134,5 +151,14 @@ int main(){
 	*/
 	AVL *avl = new AVL(n);
 	cout << avl->search("Alexis", avl->getRaiz());
-	cout << avl->search("alexis", avl->getRaiz());
+	cout << "\n\nInsertar aa\n";
+	avl->insertar("aa", avl->getRaiz());
+	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
+	cout << "\n\nInsertar Maca\n";
+	avl->insertar("Maca", avl->getRaiz());
+	cout << (avl->search("Maca",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
+	cout << "\n\nInsertar Jose\n";
+	avl->insertar("Jose", avl->getRaiz());
+	cout << (avl->search("Jose",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
+	
 }
