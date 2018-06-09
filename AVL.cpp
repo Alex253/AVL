@@ -33,34 +33,50 @@ class Nodo{
 		/**
 		 *
 		 * Rama derecha desbalanceada
-		 * K2 es el Nodo padre
+		 * K1 es el Nodo padre
 		 * X es el nodo hijo izquierdo
-		 * K1 es el nodo hijo derecho (que representa el desbalanceo)
-		 * Y es el nodo hijo izquierdo de K1
-		 * Z es el nodo hijo drecho de K1
+		 * K2 es el nodo hijo derecho (que representa el desbalanceo)
+		 * Y es el nodo hijo izquierdo de K2
+		 * Z es el nodo hijo drecho de K2
 		 *
 		 */
-		bool caso1(){
-			Nodo *k2 = this;
-			Nodo *x = this->getHI();
-			Nodo *k1 = this->getHD();
-			Nodo *y = k1->getHI();
+		Nodo * clone(){
+			return new Nodo(this->palabra, this->hi, this->hd);
+		}
+		 
+		void caso1(){
+			Nodo *k1 = this;
+			Nodo *k2 = this->getHI();
+			Nodo *x = k2->getHI();
+			Nodo *y = k2->getHD();
 			Nodo *z = k1->getHD();
-			Nodo *aux;
+			Nodo * aux;
+			
 			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
 				//DO ROTATE
+				aux = k2->clone();
+				aux->setHD(k1->clone());
+				aux->getHD()->setHI(y);
+				this->setHD(aux->getHD());
+				this->setHI(aux->getHI());
+				this->setPalabra(aux->getPalabra());
+				this->setRepeticiones(aux->getRepeticiones());
+				
+				/*
 				aux = k2;
 				k2->setHI(x);
 				k2->setHD(k1);
 				k1->setHI(y);
 				k1->setHD(z);
 				//this = aux;
+				*/
 			}
 		}
 		
 		void aumentarRepeticiones(){
 			this->repeticiones += 1;
 		}
+		
 		int getAlturaNodo(){
 			if (this->hd != NULL && this->hi != NULL){
 				int alturaDerecha = this->hd->getAlturaNodo();
@@ -229,4 +245,12 @@ int main(){
 	cout << "Berni->HI (Alexis): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
 	cout << "Berni->HD (Botero): " << avl->getRaiz()->getHI()->getHD()->getPalabra() << endl;
 	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getHI()->getPalabra() << endl;
+	avl->getRaiz()->caso1();
+	cout << "\nAplicado el caso1\n\n";
+	cout << "Raiz (Berni): " << avl->getRaiz()->getPalabra() << endl;
+	cout << "HI (Alexis): " << avl->getRaiz()->getHI()->getPalabra() << endl;
+	cout << "HD (Camila): " << avl->getRaiz()->getHD()->getPalabra() << endl;
+	cout << "Camila->HI (Botero): " << avl->getRaiz()->getHD()->getHI()->getPalabra() << endl;
+	cout << "Camila->HD (Fede): " << avl->getRaiz()->getHD()->getHD()->getPalabra() << endl;
+	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
 }
