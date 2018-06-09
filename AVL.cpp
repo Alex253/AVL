@@ -20,19 +20,15 @@ class Nodo{
 		}
 		int getAlturaNodo(){
 			if (this->hd != NULL && this->hi != NULL){
-				cout << "Tiene 2 Hijos";
 				int alturaDerecha = this->hd->getAlturaNodo();
 				int alturaIzquierda = this->hi->getAlturaNodo();
 				return 1 + (alturaDerecha >= alturaIzquierda ?
 										alturaDerecha : alturaIzquierda);
 			}else if(this->hd){
-				cout << "Existe el hijo derecho.";
 				return 1 + this->hd->getAlturaNodo();
 			}else if(this->hi){
-				cout << "Exite el hijo izquierdo";
 				return 1 + this->hi->getAlturaNodo();
 			}else{
-				cout << "No tiene hijos.";
 				return 1;
 			}
 		}
