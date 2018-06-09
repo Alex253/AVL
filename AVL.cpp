@@ -82,12 +82,28 @@ Nodo::Nodo(string p, Nodo * hijoi, Nodo * hijod){
 }
 
 class AVL{
-	private
+	private:
 		Nodo * raiz;
-	public
+	public:
 		//Constructores
 		AVL();
 		AVL(Nodo * n);
+		
+		//metodos generales
+		bool search(string p, Nodo * origen){
+			string palabraNodo = origen->getPalabra();
+			if(palabraNodo == p){
+				return true;
+			}
+			if(p < palabraNodo && origen->getHI() != NULL)
+				return search(p, origen->getHI());
+			if(p < palabraNodo && origen->getHI() == NULL)
+				return false;
+			if(p > palabraNodo && origen->getHD() != NULL)
+				return search(p, origen->getHD());
+			if(p > palabraNodo && origen->getHD() == NULL)
+				return false;
+		}
 		
 		//getters
 		Nodo * getRaiz(){
@@ -99,11 +115,24 @@ class AVL{
 		};
 };
 
+AVL::AVL(){
+	this->raiz = NULL;
+}
+
+AVL::AVL(Nodo * n){
+	this->raiz = n;
+}
+
 int main(){
 	Nodo *n1 = new Nodo("Juan");
 	Nodo *n2 = new Nodo("Maca");
-	Nodo *n = new Nodo("Alexis",n1,n2);
+	Nodo *n = new Nodo("Alexis");
+	/*
 	cout << "Altura Alexis: " << n->getAlturaNodo() << endl;
 	cout << "Altura Maca: " << n2->getAlturaNodo() << endl;
 	cout << "Altura Juan: " << n1->getAlturaNodo() << endl;
+	*/
+	AVL *avl = new AVL(n);
+	cout << avl->search("Alexis", avl->getRaiz());
+	cout << avl->search("alexis", avl->getRaiz());
 }
