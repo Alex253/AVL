@@ -34,9 +34,16 @@ class Nodo{
 				return this->hi->getAlturaNodo() == 1;
 			}
 		}
+		
+		Nodo * clone(){
+			Nodo * clon = new Nodo(this->palabra, this->hi, this->hd);
+			clon->setRepeticiones(this->repeticiones);
+			return clon;
+		}
+		
 		/**
 		 *
-		 * Rama derecha desbalanceada
+		 * Rama Izquierda -> Derecha desbalanceada
 		 * K1 es el Nodo padre
 		 * X es el nodo hijo izquierdo
 		 * K2 es el nodo hijo derecho (que representa el desbalanceo)
@@ -44,12 +51,6 @@ class Nodo{
 		 * Z es el nodo hijo drecho de K2
 		 *
 		 */
-		Nodo * clone(){
-			Nodo * clon = new Nodo(this->palabra, this->hi, this->hd);
-			clon->setRepeticiones(this->repeticiones);
-			return clon;
-		}
-		 
 		void caso1(){
 			Nodo *k1 = this;
 			Nodo *k2 = this->getHI();
