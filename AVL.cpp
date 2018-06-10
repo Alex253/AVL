@@ -184,6 +184,12 @@ class AVL{
 			return false;
 		}
 		
+		void desbalanceo(Nodo * nod){
+			if( ! nod->balanceado() ){
+				nod->balancear();
+			}
+		}
+		
 		void insertar(string p, Nodo * origen){
 			string palabraNodo = origen->getPalabra();
 			if(palabraNodo == p){
