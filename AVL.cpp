@@ -263,3 +263,7 @@ void caso1test(){
 	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
 	cout << "Camila(2): " << avl->getRaiz()->getRepeticiones() << "Apariciones." << endl;
 }
+
+void caso2test(){
+	
+}
