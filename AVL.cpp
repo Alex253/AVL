@@ -222,23 +222,6 @@ AVL::AVL(Nodo * n){
 }
 
 int main(){
-	Nodo *n = new Nodo("javier");
-	AVL *avl = new AVL(n);
-	cout << avl->search("javier", avl->getRaiz());
-	avl->insertar("gonzalo",avl->getRaiz());
-	avl->insertar("oscar",avl->getRaiz());
-	avl->insertar("lucas",avl->getRaiz());
-	avl->insertar("pablo",avl->getRaiz());
-	avl->insertar("rodrigo",avl->getRaiz());
-	avl->getRaiz()->caso2();
-	cout << "Aplicado el caso 2";
-	cout << "Raiz(oscar): " << avl->getRaiz()->getPalabra() << endl;
-	cout << "HD(pablo): " << avl->getRaiz()->getHD()->getPalabra() << endl;
-	cout << "HI(javier): " << avl->getRaiz()->getHI()->getPalabra() << endl;
-	cout << "Javier -> Izq (gonzalo): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
-	cout << "Javier -> Der (lucas): " << avl->getRaiz()->getHI()->getHD()->getPalabra() << endl;
-	cout << "Pablo -> Der (rodrigo): " << avl->getRaiz()->getHD()->getHD()->getPalabra() << endl;
-	
 	
 }
 
@@ -274,5 +257,21 @@ void caso1test(){
 }
 
 void caso2test(){
+	Nodo *n = new Nodo("javier");
+	AVL *avl = new AVL(n);
+	cout << avl->search("javier", avl->getRaiz());
+	avl->insertar("gonzalo",avl->getRaiz());
+	avl->insertar("oscar",avl->getRaiz());
+	avl->insertar("lucas",avl->getRaiz());
+	avl->insertar("pablo",avl->getRaiz());
+	avl->insertar("rodrigo",avl->getRaiz());
+	avl->getRaiz()->caso2();
+	cout << "Aplicado el caso 2";
+	cout << "Raiz(oscar): " << avl->getRaiz()->getPalabra() << endl;
+	cout << "HD(pablo): " << avl->getRaiz()->getHD()->getPalabra() << endl;
+	cout << "HI(javier): " << avl->getRaiz()->getHI()->getPalabra() << endl;
+	cout << "Javier -> Izq (gonzalo): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
+	cout << "Javier -> Der (lucas): " << avl->getRaiz()->getHI()->getHD()->getPalabra() << endl;
+	cout << "Pablo -> Der (rodrigo): " << avl->getRaiz()->getHD()->getHD()->getPalabra() << endl;
 	
 }
