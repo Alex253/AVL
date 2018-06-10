@@ -190,9 +190,16 @@ class AVL{
 		}
 		
 		void desbalanceo(Nodo * nod){
+			if (nod->getHI() != NULL){
+				this->desbalanceo(nod->getHI());
+			}
+			if (nod->getHD() != NULL){
+				this->desbalanceo(nod->getHD());
+			}
 			if( ! nod->balanceado() ){
 				nod->balancear();
 			}
+			return;
 		}
 		
 		void insertar(string p, Nodo * origen){
@@ -233,7 +240,8 @@ AVL::AVL(Nodo * n){
 }
 
 int main(){
-	
+	caso1test();
+	caso2test();
 }
 
 
@@ -256,7 +264,7 @@ void caso1test(){
 	cout << "Berni->HI (Alexis): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
 	cout << "Berni->HD (Botero): " << avl->getRaiz()->getHI()->getHD()->getPalabra() << endl;
 	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getHI()->getPalabra() << endl;
-	avl->getRaiz()->caso1();
+	avl->getRaiz()->balancear();
 	cout << "\nAplicado el caso1\n\n";
 	cout << "Raiz (Berni): " << avl->getRaiz()->getPalabra() << endl;
 	cout << "HI (Alexis): " << avl->getRaiz()->getHI()->getPalabra() << endl;
@@ -276,7 +284,7 @@ void caso2test(){
 	avl->insertar("lucas",avl->getRaiz());
 	avl->insertar("pablo",avl->getRaiz());
 	avl->insertar("rodrigo",avl->getRaiz());
-	avl->getRaiz()->caso2();
+	avl->getRaiz()->balancear();
 	cout << "Aplicado el caso 2";
 	cout << "Raiz(oscar): " << avl->getRaiz()->getPalabra() << endl;
 	cout << "HD(pablo): " << avl->getRaiz()->getHD()->getPalabra() << endl;
