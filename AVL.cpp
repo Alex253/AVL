@@ -1,7 +1,9 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
-
+/* --- PROTOTYPE FUNCTIONS --- */
+void leerArchivo();
 void caso1test();
 void caso2test();
 
@@ -240,10 +242,32 @@ AVL::AVL(Nodo * n){
 }
 
 int main(){
+	leerArchivo(); //datos.md
+	/*
 	caso1test();
 	caso2test();
+	*/
 }
 
+void leerArchivo(){
+	string cadena;
+	ifstream lector;
+	lector.open("datos.md");
+	if(lector.fail()){
+		cout << "\t\t***\tERROR AL LEER EL ARCHIVO\t***\t\t\n\n";
+		cout << "(Revise que el archivo 'datos.md' existe en el directorio local)\n_";
+		cin.ignore(1);
+	}else{
+		while(lector.good()){
+			lector >> cadena;
+			//añadir las palabras al arbol.
+			// dos posibles soluciones:
+			// crear el avl como global, mandarlo desde el main como un parametro a la funcion.
+			cadena.clear();
+		}
+		lector.close();
+	}
+}
 
 void caso1test(){
 	Nodo *n = new Nodo("camila");
