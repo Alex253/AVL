@@ -11,36 +11,6 @@ class Nodo{
 		string palabra;
 		Nodo *hd;
 		Nodo *hi;
-		
-	public:
-		//Constructores
-		Nodo();
-		Nodo(string p);
-		Nodo(string p, Nodo * hijoi, Nodo *hijod);
-		
-		//Metodos generales
-		bool balanceado(){
-			if (this->hd == NULL && this->hi == NULL){
-				return true;
-			}else if (this->hd != NULL && this->hi != NULL){
-				//si tiene ambos hijos hay que calcular la altura de ambos
-				// y compararla entre ellas (solo puede ser 1 mayor para estar balanceado)
-				return (1 + this->hd->getAlturaNodo() == this->hi->getAlturaNodo()
-							|| this->hd->getAlturaNodo() == this->hi->getAlturaNodo() + 1);
-			}else if(this->hd != NULL){
-				//al no entrar en los if anteriores indica que el izquierdo es no nulo
-				return this->hd->getAlturaNodo() == 1;
-			}else {
-				return this->hi->getAlturaNodo() == 1;
-			}
-		}
-		
-		Nodo * clone(){
-			Nodo * clon = new Nodo(this->palabra, this->hi, this->hd);
-			clon->setRepeticiones(this->repeticiones);
-			return clon;
-		}
-		
 		/**
 		 *
 		 * Rama Izquierda -> Derecha desbalanceada
@@ -89,6 +59,41 @@ class Nodo{
 				this->setRepeticiones(aux->getRepeticiones());
 			}
 		}
+		
+	public:
+		//Constructores
+		Nodo();
+		Nodo(string p);
+		Nodo(string p, Nodo * hijoi, Nodo *hijod);
+		
+		//Metodos generales
+		bool balanceado(){
+			if (this->hd == NULL && this->hi == NULL){
+				return true;
+			}else if (this->hd != NULL && this->hi != NULL){
+				//si tiene ambos hijos hay que calcular la altura de ambos
+				// y compararla entre ellas (solo puede ser 1 mayor para estar balanceado)
+				return (1 + this->hd->getAlturaNodo() == this->hi->getAlturaNodo()
+							|| this->hd->getAlturaNodo() == this->hi->getAlturaNodo() + 1);
+			}else if(this->hd != NULL){
+				//al no entrar en los if anteriores indica que el izquierdo es no nulo
+				return this->hd->getAlturaNodo() == 1;
+			}else {
+				return this->hi->getAlturaNodo() == 1;
+			}
+		}
+		
+		Nodo * clone(){
+			Nodo * clon = new Nodo(this->palabra, this->hi, this->hd);
+			clon->setRepeticiones(this->repeticiones);
+			return clon;
+		}
+		
+		void balancear(){
+			this->caso1();
+			this->caso2();
+		}
+		
 		
 		void aumentarRepeticiones(){
 			this->repeticiones += 1;
