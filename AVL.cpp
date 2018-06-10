@@ -1,6 +1,10 @@
 #include <iostream>
 
 using namespace std;
+
+void caso1test();
+void caso2test();
+
 class Nodo{
 	private:
 		int repeticiones;
@@ -41,7 +45,9 @@ class Nodo{
 		 *
 		 */
 		Nodo * clone(){
-			return new Nodo(this->palabra, this->hi, this->hd);
+			Nodo * clon = new Nodo(this->palabra, this->hi, this->hd);
+			clon->setRepeticiones(this->repeticiones);
+			return clon;
 		}
 		 
 		void caso1(){
@@ -61,15 +67,25 @@ class Nodo{
 				this->setHI(aux->getHI());
 				this->setPalabra(aux->getPalabra());
 				this->setRepeticiones(aux->getRepeticiones());
-				
-				/*
-				aux = k2;
-				k2->setHI(x);
-				k2->setHD(k1);
-				k1->setHI(y);
-				k1->setHD(z);
-				//this = aux;
-				*/
+			}
+		}
+		
+		void caso2(){
+			Nodo * k1 = this;
+			Nodo * k2 = this->getHD();
+			Nodo * x = k2->getHD();
+			Nodo * y = k2->getHI();
+			Nodo * z = k1->getHI();
+			Nodo * aux;			
+			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
+				//DO ROTATE
+				aux = k2->clone();
+				aux->setHI(k1->clone());
+				aux->getHI()->setHD(y);
+				this->setHD(aux->getHD());
+				this->setHI(aux->getHI());
+				this->setPalabra(aux->getPalabra());
+				this->setRepeticiones(aux->getRepeticiones());
 			}
 		}
 		
@@ -205,40 +221,31 @@ AVL::AVL(Nodo * n){
 }
 
 int main(){
-	Nodo *n = new Nodo("camila");
+	Nodo *n = new Nodo("javier");
+	AVL *avl = new AVL(n);
+	cout << avl->search("javier", avl->getRaiz());
+	avl->insertar("gonzalo",avl->getRaiz());
+	avl->insertar("oscar",avl->getRaiz());
+	avl->insertar("lucas",avl->getRaiz());
+	avl->insertar("pablo",avl->getRaiz());
+	avl->insertar("rodrigo",avl->getRaiz());
 	
+}
+
+
+void caso1test(){
+	Nodo *n = new Nodo("camila");
 	AVL *avl = new AVL(n);
 	cout << avl->search("camila", avl->getRaiz());
-	/*
-	cout << "\n\nInsertar aa\n";
-	avl->insertar("aa", avl->getRaiz());
-	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << "\n\nInsertar maca\n";
-	avl->insertar("maca", avl->getRaiz());
-	cout << (avl->search("maca",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << "\n\nInsertar jose\n";
-	avl->insertar("jose", avl->getRaiz());
-	cout << (avl->search("jose",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << "\n\nInsertar berni\n";
-	//avl->insertar("berni", avl->getRaiz());
-	cout << (avl->search("berni",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << "\n\nInsertar aa\n";
-	avl->insertar("aa", avl->getRaiz());
-	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << "\n\nInsertar aa\n";
-	avl->insertar("aa", avl->getRaiz());
-	cout << (avl->search("aa",avl->getRaiz()) ? "OK" : "Fallo!") << endl;
-	cout << avl->getRaiz()->getHI()->getRepeticiones() << endl;
-	cout << "_________________\n";
-	cout << "Altura Arbol: " << avl->getAltura() << endl;
-	*/
-	
+	cout << "Camila(2): " << avl->getRaiz()->getRepeticiones() << "Apariciones." << endl;
 	avl->insertar("berni",avl->getRaiz());
 	avl->insertar("alexis",avl->getRaiz());
 	avl->insertar("botero",avl->getRaiz());
 	avl->insertar("alejo",avl->getRaiz());
 	avl->insertar("fede",avl->getRaiz());
-	
+	avl->insertar("camila",avl->getRaiz());
+	avl->insertar("camila",avl->getRaiz());
+	cout << "Camila(2): " << avl->getRaiz()->getRepeticiones() << "Apariciones." << endl;
 	cout << "Raiz (Camila): " << avl->getRaiz()->getPalabra() << endl;
 	cout << "HI (Berni): " << avl->getRaiz()->getHI()->getPalabra() << endl;
 	cout << "HD (Fede): " << avl->getRaiz()->getHD()->getPalabra() << endl;
@@ -253,4 +260,5 @@ int main(){
 	cout << "Camila->HI (Botero): " << avl->getRaiz()->getHD()->getHI()->getPalabra() << endl;
 	cout << "Camila->HD (Fede): " << avl->getRaiz()->getHD()->getHD()->getPalabra() << endl;
 	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
+	cout << "Camila(2): " << avl->getRaiz()->getRepeticiones() << "Apariciones." << endl;
 }
