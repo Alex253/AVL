@@ -169,7 +169,7 @@ class AVL{
 		//Constructores
 		AVL();
 		AVL(Nodo * n);
-		
+		AVL(string palabra);
 		//metodos generales
 		int getAltura(){
 			return this->raiz->getAlturaNodo();
@@ -240,7 +240,9 @@ AVL::AVL(){
 AVL::AVL(Nodo * n){
 	this->raiz = n;
 }
-
+AVL::AVL(string cadena){
+	this->raiz = new Nodo(cadena);
+}
 int main(){
 	leerArchivo(); //datos.md
 	/*
