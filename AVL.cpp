@@ -22,42 +22,46 @@ class Nodo{
 		void caso1(){
 			Nodo *k1 = this;
 			Nodo *k2 = this->getHI();
-			Nodo *x = k2->getHI();
-			Nodo *y = k2->getHD();
-			Nodo *z = k1->getHD();
-			Nodo * aux;
-			if(k1 != NULL && k2 != NULL && x != NULL && y != NULL && z != NULL){
-				if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
-				//DO ROTATE
-				aux = k2->clone();
-				aux->setHD(k1->clone());
-				aux->getHD()->setHI(y);
-				this->setHD(aux->getHD());
-				this->setHI(aux->getHI());
-				this->setPalabra(aux->getPalabra());
-				this->setRepeticiones(aux->getRepeticiones());
+			if (k1 != NULL && k2 != NULL){
+				Nodo *x = k2->getHI();
+				Nodo *y = k2->getHD();
+				Nodo *z = k1->getHD();
+				Nodo * aux;
+				if(x != NULL && y != NULL && z != NULL){
+					if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
+						//DO ROTATE
+						aux = k2->clone();
+						aux->setHD(k1->clone());
+						aux->getHD()->setHI(y);
+						this->setHD(aux->getHD());
+						this->setHI(aux->getHI());
+						this->setPalabra(aux->getPalabra());
+						this->setRepeticiones(aux->getRepeticiones());
+					}
+				}
+
 			}
-			}
-			
 		}
 		
 		void caso2(){
 			Nodo * k1 = this;
 			Nodo * k2 = this->getHD();
-			Nodo * x = k2->getHD();
-			Nodo * y = k2->getHI();
-			Nodo * z = k1->getHI();
-			Nodo * aux;			
-			if(k1 != NULL && k2 != NULL && x != NULL && y != NULL && z != NULL){
+			if (k1 != NULL && k2 != NULL){
+				Nodo * x = k2->getHD();
+				Nodo * y = k2->getHI();
+				Nodo * z = k1->getHI();
+				Nodo * aux;			
+				if(x != NULL && y != NULL && z != NULL){
 				if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
-				//DO ROTATE
-				aux = k2->clone();
-				aux->setHI(k1->clone());
-				aux->getHI()->setHD(y);
-				this->setHD(aux->getHD());
-				this->setHI(aux->getHI());
-				this->setPalabra(aux->getPalabra());
-				this->setRepeticiones(aux->getRepeticiones());
+					//DO ROTATE
+					aux = k2->clone();
+					aux->setHI(k1->clone());
+					aux->getHI()->setHD(y);
+					this->setHD(aux->getHD());
+					this->setHI(aux->getHI());
+					this->setPalabra(aux->getPalabra());
+					this->setRepeticiones(aux->getRepeticiones());
+				}
 			}
 			}
 		}
@@ -92,7 +96,9 @@ class Nodo{
 		}
 		
 		void balancear(){
+			cout << "llamando al caso 1" << endl;
 			this->caso1();
+			cout << "llamando al caso 2" << endl;
 			this->caso2();
 		}
 		
@@ -201,9 +207,11 @@ class AVL{
 		
 		void balancear(Nodo * nod){
 			if(nod != NULL){
-				cout << "intentando balancear:" << nod->getPalabra() << endl << endl;
+				cout << "Not NULL" << endl;
+				//cout << "intentando balancear:" << nod->getPalabra() << endl << endl;
 				this->balancear(nod->getHI());
 				this->balancear(nod->getHD());
+				cout << "llamando al balanceo del nodo: " << nod->getPalabra() << endl;
 				nod->balancear();
 				cout << "\t\t***balanceado prro\n\n\n";
 			}
@@ -227,7 +235,7 @@ class AVL{
 				//crear un nuevo nodo con la palabra
 				origen->setHD(new Nodo(p));
 			}
-			cout << "sali del if else\n\n";
+			cout << "insertado -> llamando a balancear...\n\n";
 			this->balancear(this->raiz);
 			cout << "saliendo de insertar" << endl;
 			return;
@@ -263,8 +271,13 @@ int main(){
 	AVL * avl = new AVL();
 	leerArchivo(avl); //datos.md
 	avl->toPrint(avl->getRaiz());
-	
-	cout << avl->getRaiz()->getPalabra();
+	cout << "\t\t----------------------\n";
+	cout << "Raiz (Berni): " << avl->getRaiz()->getPalabra() << endl;
+	cout << "HI (Alexis): " << avl->getRaiz()->getHI()->getPalabra() << endl;
+	cout << "HD (Camila): " << avl->getRaiz()->getHD()->getPalabra() << endl;
+	cout << "Camila->HI (Botero): " << avl->getRaiz()->getHD()->getHI()->getPalabra() << endl;
+	cout << "Camila->HD (Fede): " << avl->getRaiz()->getHD()->getHD()->getPalabra() << endl;
+	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
 	/*
 	caso1test();
 	caso2test();
