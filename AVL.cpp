@@ -191,7 +191,7 @@ class AVL{
 			return false;
 		}
 		
-		void desbalanceo(Nodo * nod){
+		void balancear(Nodo * nod){
 			if (nod->getHI() != NULL){
 				this->desbalanceo(nod->getHI());
 			}
@@ -220,6 +220,7 @@ class AVL{
 			if(p > palabraNodo && origen->getHD() == NULL)
 				//crear un nuevo nodo con la palabra
 				origen->setHD(new Nodo(p));
+			this->balancear(this->raiz);
 			return;
 		}
 		
