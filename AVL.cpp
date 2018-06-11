@@ -2,10 +2,6 @@
 #include <fstream>
 
 using namespace std;
-/* --- PROTOTYPE FUNCTIONS --- */
-void leerArchivo();
-void caso1test();
-void caso2test();
 
 class Nodo{
 	private:
@@ -30,8 +26,8 @@ class Nodo{
 			Nodo *y = k2->getHD();
 			Nodo *z = k1->getHD();
 			Nodo * aux;
-			
-			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
+			if(k1 != NULL && k2 != NULL && x != NULL && y != NULL && z != NULL){
+				if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
 				//DO ROTATE
 				aux = k2->clone();
 				aux->setHD(k1->clone());
@@ -41,6 +37,8 @@ class Nodo{
 				this->setPalabra(aux->getPalabra());
 				this->setRepeticiones(aux->getRepeticiones());
 			}
+			}
+			
 		}
 		
 		void caso2(){
@@ -50,7 +48,8 @@ class Nodo{
 			Nodo * y = k2->getHI();
 			Nodo * z = k1->getHI();
 			Nodo * aux;			
-			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
+			if(k1 != NULL && k2 != NULL && x != NULL && y != NULL && z != NULL){
+				if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
 				//DO ROTATE
 				aux = k2->clone();
 				aux->setHI(k1->clone());
@@ -59,6 +58,7 @@ class Nodo{
 				this->setHI(aux->getHI());
 				this->setPalabra(aux->getPalabra());
 				this->setRepeticiones(aux->getRepeticiones());
+			}
 			}
 		}
 		
@@ -171,6 +171,14 @@ class AVL{
 		AVL(Nodo * n);
 		AVL(string palabra);
 		//metodos generales
+		void toPrint(Nodo *n){
+			if(n != NULL){
+				toPrint(n->getHI());
+				toPrint(n->getHD());
+				cout << "\n" << n->getPalabra() << endl;
+			}
+			return;
+		}
 		int getAltura(){
 			return this->raiz->getAlturaNodo();
 		}
@@ -192,35 +200,36 @@ class AVL{
 		}
 		
 		void balancear(Nodo * nod){
-			if (nod->getHI() != NULL){
-				this->desbalanceo(nod->getHI());
-			}
-			if (nod->getHD() != NULL){
-				this->desbalanceo(nod->getHD());
-			}
-			if( ! nod->balanceado() ){
+			if(nod != NULL){
+				cout << "intentando balancear:" << nod->getPalabra() << endl << endl;
+				this->balancear(nod->getHI());
+				this->balancear(nod->getHD());
 				nod->balancear();
+				cout << "\t\t***balanceado prro\n\n\n";
 			}
 			return;
 		}
 		
 		void insertar(string p, Nodo * origen){
+			cout << "insertando desde insertar ahre: " << p << endl;
 			string palabraNodo = origen->getPalabra();
 			if(palabraNodo == p){
 				origen->aumentarRepeticiones();
 				return;
-			}
-			if(p < palabraNodo && origen->getHI() != NULL)
+			}else	if(p < palabraNodo && origen->getHI() != NULL){
 				return insertar(p, origen->getHI());
-			if(p < palabraNodo && origen->getHI() == NULL)
+			}else	if(p < palabraNodo && origen->getHI() == NULL){
 				//crear un nuevo nodo con la palabra
 				origen->setHI(new Nodo(p));
-			if(p > palabraNodo && origen->getHD() != NULL)
+			}else if(p > palabraNodo && origen->getHD() != NULL){
 				return insertar(p, origen->getHD());
-			if(p > palabraNodo && origen->getHD() == NULL)
+			}else if(p > palabraNodo && origen->getHD() == NULL){
 				//crear un nuevo nodo con la palabra
 				origen->setHD(new Nodo(p));
+			}
+			cout << "sali del if else\n\n";
 			this->balancear(this->raiz);
+			cout << "saliendo de insertar" << endl;
 			return;
 		}
 		
@@ -244,15 +253,25 @@ AVL::AVL(Nodo * n){
 AVL::AVL(string cadena){
 	this->raiz = new Nodo(cadena);
 }
+
+/* --- PROTOTYPE FUNCTIONS --- */
+void leerArchivo(AVL *avl);
+void caso1test();
+void caso2test();
+
 int main(){
-	leerArchivo(); //datos.md
+	AVL * avl = new AVL();
+	leerArchivo(avl); //datos.md
+	avl->toPrint(avl->getRaiz());
+	
+	cout << avl->getRaiz()->getPalabra();
 	/*
 	caso1test();
 	caso2test();
 	*/
 }
 
-void leerArchivo(){
+void leerArchivo(AVL * avl){
 	string cadena;
 	ifstream lector;
 	lector.open("datos.md");
@@ -266,6 +285,17 @@ void leerArchivo(){
 			//añadir las palabras al arbol.
 			// dos posibles soluciones:
 			// crear el avl como global, mandarlo desde el main como un parametro a la funcion.
+			cout << "\t\t** LEYENDO PALABRA: ";
+			if (avl->getRaiz() == NULL){
+				cout << cadena << endl;
+				cout << "raiz nula\n";
+				avl->setRaiz(new Nodo(cadena));
+				cout << avl->getRaiz()->getPalabra() << endl;
+			}else{
+				cout << cadena << endl;
+				cout << "insertando : " << cadena << endl;
+				avl->insertar(cadena,avl->getRaiz());
+			}
 			cadena.clear();
 		}
 		lector.close();
