@@ -96,9 +96,7 @@ class Nodo{
 		}
 		
 		void balancear(){
-			cout << "llamando al caso 1" << endl;
 			this->caso1();
-			cout << "llamando al caso 2" << endl;
 			this->caso2();
 		}
 		
@@ -258,41 +256,39 @@ AVL::AVL(string cadena){
 }
 
 /* --- PROTOTYPE FUNCTIONS --- */
-void leerArchivo(AVL *avl);
+void leerArchivo(AVL *avl, string archivo);
 void caso1test();
 void caso2test();
 
 int main(){
+	string archivo;
 	AVL * avl = new AVL();
-	leerArchivo(avl); //datos.md
+	do{
+		system("clear");
+		cout << "Ingrese el nombre del archivo a leer (incluya la extension): ";
+		cin >> archivo;
+	}while(archivo == "");
+	leerArchivo(avl,archivo);
 	avl->toPrint(avl->getRaiz());
-	cout << "\t\t----------------------\n";
-	cout << "Raiz (Berni): " << avl->getRaiz()->getPalabra() << endl;
-	cout << "HI (Alexis): " << avl->getRaiz()->getHI()->getPalabra() << endl;
-	cout << "HD (Camila): " << avl->getRaiz()->getHD()->getPalabra() << endl;
-	cout << "Camila->HI (Botero): " << avl->getRaiz()->getHD()->getHI()->getPalabra() << endl;
-	cout << "Camila->HD (Fede): " << avl->getRaiz()->getHD()->getHD()->getPalabra() << endl;
-	cout << "Alexis->HI (Alejo): " << avl->getRaiz()->getHI()->getHI()->getPalabra() << endl;
+	
 	/*
 	caso1test();
 	caso2test();
 	*/
 }
 
-void leerArchivo(AVL * avl){
+void leerArchivo(AVL * avl, string archivo){
 	string cadena;
 	ifstream lector;
-	lector.open("caso1.md");
+	lector.open(archivo.c_str());
 	if(lector.fail()){
 		cout << "\t\t***\tERROR AL LEER EL ARCHIVO\t***\t\t\n\n";
-		cout << "(Revise que el archivo 'datos.md' existe en el directorio local)\n_";
+		cout << "(Revise que el archivo '" << archivo << "' existe en el directorio local)\n_";
 		cin.ignore(1);
 	}else{
 		while(lector.good()){
 			lector >> cadena;
 			//añadir las palabras al arbol.
-			// dos posibles soluciones:
-			// crear el avl como global, mandarlo desde el main como un parametro a la funcion.
 			if (avl->getRaiz() == NULL){
 				cout << cadena << endl;
 				avl->setRaiz(new Nodo(cadena));
