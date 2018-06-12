@@ -293,15 +293,12 @@ void leerArchivo(AVL * avl){
 			//añadir las palabras al arbol.
 			// dos posibles soluciones:
 			// crear el avl como global, mandarlo desde el main como un parametro a la funcion.
-			cout << "\t\t** LEYENDO PALABRA: ";
 			if (avl->getRaiz() == NULL){
 				cout << cadena << endl;
-				cout << "raiz nula\n";
 				avl->setRaiz(new Nodo(cadena));
 				cout << avl->getRaiz()->getPalabra() << endl;
 			}else{
 				cout << cadena << endl;
-				cout << "insertando : " << cadena << endl;
 				avl->insertar(cadena,avl->getRaiz());
 			}
 			cadena.clear();
