@@ -178,10 +178,11 @@ class AVL{
 		AVL(string palabra);
 		//metodos generales
 		void toPrint(Nodo *n){
+			//IMPRIME IZQUIERDA, NODO, DERECHA (ORDEN ALFABETICO)
 			if(n != NULL){
 				toPrint(n->getHI());
-				toPrint(n->getHD());
 				cout << "\n" << n->getPalabra() << endl;
+				toPrint(n->getHD());
 			}
 			return;
 		}
@@ -207,19 +208,15 @@ class AVL{
 		
 		void balancear(Nodo * nod){
 			if(nod != NULL){
-				cout << "Not NULL" << endl;
 				//cout << "intentando balancear:" << nod->getPalabra() << endl << endl;
 				this->balancear(nod->getHI());
 				this->balancear(nod->getHD());
-				cout << "llamando al balanceo del nodo: " << nod->getPalabra() << endl;
 				nod->balancear();
-				cout << "\t\t***balanceado prro\n\n\n";
 			}
 			return;
 		}
 		
 		void insertar(string p, Nodo * origen){
-			cout << "insertando desde insertar ahre: " << p << endl;
 			string palabraNodo = origen->getPalabra();
 			if(palabraNodo == p){
 				origen->aumentarRepeticiones();
@@ -235,9 +232,7 @@ class AVL{
 				//crear un nuevo nodo con la palabra
 				origen->setHD(new Nodo(p));
 			}
-			cout << "insertado -> llamando a balancear...\n\n";
 			this->balancear(this->raiz);
-			cout << "saliendo de insertar" << endl;
 			return;
 		}
 		
@@ -287,7 +282,7 @@ int main(){
 void leerArchivo(AVL * avl){
 	string cadena;
 	ifstream lector;
-	lector.open("datos.md");
+	lector.open("caso1.md");
 	if(lector.fail()){
 		cout << "\t\t***\tERROR AL LEER EL ARCHIVO\t***\t\t\n\n";
 		cout << "(Revise que el archivo 'datos.md' existe en el directorio local)\n_";
