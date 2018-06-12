@@ -264,7 +264,6 @@ int main(){
 	string archivo;
 	AVL * avl = new AVL();
 	do{
-		system("clear");
 		cout << "Ingrese el nombre del archivo a leer (incluya la extension): ";
 		cin >> archivo;
 	}while(archivo == "");
@@ -292,7 +291,6 @@ void leerArchivo(AVL * avl, string archivo){
 			if (avl->getRaiz() == NULL){
 				cout << cadena << endl;
 				avl->setRaiz(new Nodo(cadena));
-				cout << avl->getRaiz()->getPalabra() << endl;
 			}else{
 				cout << cadena << endl;
 				avl->insertar(cadena,avl->getRaiz());
