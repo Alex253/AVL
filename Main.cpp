@@ -93,3 +93,4 @@ void caso2test(){
 	cout << "Javier -> Der (lucas): " << avl->getRaiz()->getHI()->getHD()->getPalabra() << endl;
 	cout << "Pablo -> Der (rodrigo): " << avl->getRaiz()->getHD()->getHD()->getPalabra() << endl;
 }
+

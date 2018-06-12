@@ -194,3 +194,4 @@ string Nodo::getPalabra(){
 int Nodo::getRepeticiones(){
 	return this->repeticiones;
 }
+
