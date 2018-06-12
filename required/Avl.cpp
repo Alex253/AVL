@@ -39,7 +39,7 @@ void AVL::toPrint(Nodo * n){
 	//IMPRIME IZQUIERDA, NODO, DERECHA (ORDEN ALFABETICO)
 	if(n != NULL){
 		toPrint(n->getHI());
-		cout << "\n" << n->getPalabra() << endl;
+		cout << "\n" << n->getPalabra() << "(" <<n->getRepeticiones() << ")" << endl;
 		toPrint(n->getHD());
 	}
 	return;
@@ -71,6 +71,7 @@ void AVL::balancear(Nodo * nod){
 }
 
 void AVL::insertar(string p, Nodo * origen){
+	if(p == "") return;
 	string palabraNodo = origen->getPalabra();
 	if(palabraNodo == p){
 		origen->aumentarRepeticiones();
