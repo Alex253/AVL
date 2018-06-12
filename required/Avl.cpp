@@ -1,3 +1,5 @@
+#include "Nodo.cpp"
+using namespace std;
 class AVL{
 	private:
 		Nodo * raiz;
