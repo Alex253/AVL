@@ -9,6 +9,8 @@ class Nodo{
 		Nodo *hi;
 		void caso1();
 		void caso2();
+		void caso3();
+		void caso4();
 		
 	public:
 		//Constructores
@@ -110,6 +112,33 @@ void Nodo::caso2(){
 				this->setRepeticiones(aux->getRepeticiones());
 			}
 		}
+	}
+}
+
+void Nodo::caso3(){
+	Nodo * aux;
+	Nodo * k1 = this;
+	Nodo * k2 = this->getHI();
+	if (k1 != NULL && k2 != NULL){
+		Nodo * z = k1->getHD();
+		Nodo * k3 = k2->getHD();
+		Nodo * x = k2->getHI();
+		if (k3 != NULL){
+			Nodo * y1 = k3->getHI();
+			Nodo * y2 = k3->getHD();
+			if(y1 != NULL && y2 != NULL && k2->getAlturaNodo() - 1 > z->getAlturaNodo() && k3->getAlturaNodo() > x->getAlturaNodo()){
+				//DO ROTATE
+				aux = k3->clone();
+				aux->setHI(k2->clone());
+				aux->setHD(k1->clone());
+				aux->getHI()->setHD(y1->clone());
+				aux->getHD()->setHI(y2->clone());
+				this->setHD(aux->getHD());
+				this->setHI(aux->getHI());
+				this->setPalabra(aux->getPalabra());
+				this->setRepeticiones(aux->getRepeticiones());
+			}
+		}	
 	}
 }
 
