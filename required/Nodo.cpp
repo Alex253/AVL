@@ -80,6 +80,7 @@ void Nodo::caso1(){
 		if(x != NULL && y != NULL && z != NULL){
 			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
 				//DO ROTATE
+				cout << "se ha generado el caso 1\n\n";
 				aux = k2->clone();
 				aux->setHD(k1->clone());
 				aux->getHD()->setHI(y);
@@ -103,6 +104,7 @@ void Nodo::caso2(){
 		if(x != NULL && y != NULL && z != NULL){
 			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
 				//DO ROTATE
+				cout << "se ha generado el caso 2\n\n";
 				aux = k2->clone();
 				aux->setHI(k1->clone());
 				aux->getHI()->setHD(y);
@@ -128,6 +130,7 @@ void Nodo::caso3(){
 			Nodo * y2 = k3->getHD();
 			if(y1 != NULL && y2 != NULL && k2->getAlturaNodo() - 1 > z->getAlturaNodo() && k3->getAlturaNodo() > x->getAlturaNodo()){
 				//DO ROTATE
+				cout << "se ha generado el caso 3\n\n";
 				aux = k3->clone();
 				aux->setHI(k2->clone());
 				aux->setHD(k1->clone());
@@ -139,6 +142,34 @@ void Nodo::caso3(){
 				this->setRepeticiones(aux->getRepeticiones());
 			}
 		}	
+	}
+}
+
+void Nodo::caso4(){
+	Nodo * aux;
+	Nodo * k1 = this;
+	Nodo * z = this->getHI();
+	Nodo * k2 = this->getHD();
+	if (k1 != NULL && k2 != NULL && z != NULL){
+		Nodo * k3 = k2->getHI();
+		Nodo * x = k2->getHD();
+		if (k3 != NULL && x != NULL){
+			Nodo * y1 = k3->getHI();
+			Nodo * y2 = k3->getHD();
+			if(y1 != NULL && y2 != NULL && k2->getAlturaNodo() - 1 > z->getAlturaNodo() && k3->getAlturaNodo() > x->getAlturaNodo()){
+				//DO ROTATE
+				cout << "Se ha generado el caso 4\n\n";
+				aux = k3->clone();
+				aux->setHI(k1->clone());
+				aux->getHI()->setHD(y1);
+				aux->setHD(k2->clone());
+				aux->getHD()->setHI(y2);
+				this->setHI(aux->getHI());
+				this->setHD(aux->getHD());
+				this->setPalabra(aux->getPalabra());
+				this->setRepeticiones(aux->getRepeticiones());
+			}
+		}
 	}
 }
 
@@ -167,8 +198,8 @@ Nodo * Nodo::clone(){
 void Nodo::balancear(){
 	this->caso1();
 	this->caso2();
-	//this->caso3();
-	//this->caso4();
+	this->caso3();
+	this->caso4();
 }
 
 void Nodo::aumentarRepeticiones(){
