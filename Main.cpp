@@ -18,6 +18,8 @@ int main(){
 	}while(archivo == "");
 	leerArchivo(avl,archivo);
 	avl->toPrint(avl->getRaiz());
+	
+	cout << "\n---\n$:> " << avl->getRaiz()->getPalabra();
 }
 
 void leerArchivo(AVL * avl, string archivo){
