@@ -100,7 +100,7 @@ void Nodo::caso2(){
 		Nodo * x = k2->getHD();
 		Nodo * y = k2->getHI();
 		Nodo * z = k1->getHI();
-		Nodo * aux;			
+		Nodo * aux;
 		if(x != NULL && y != NULL && z != NULL){
 			if(z->getAlturaNodo() < k2->getAlturaNodo() - 1 && x->getAlturaNodo() > y->getAlturaNodo()){
 				//DO ROTATE
@@ -125,21 +125,23 @@ void Nodo::caso3(){
 		Nodo * z = k1->getHD();
 		Nodo * k3 = k2->getHD();
 		Nodo * x = k2->getHI();
-		if (k3 != NULL){
+		if (k3 != NULL && z != NULL && x != NULL){
 			Nodo * y1 = k3->getHI();
 			Nodo * y2 = k3->getHD();
-			if(y1 != NULL && y2 != NULL && k2->getAlturaNodo() - 1 > z->getAlturaNodo() && k3->getAlturaNodo() > x->getAlturaNodo()){
-				//DO ROTATE
-				cout << "se ha generado el caso 3\n\n";
-				aux = k3->clone();
-				aux->setHI(k2->clone());
-				aux->setHD(k1->clone());
-				aux->getHI()->setHD(y1->clone());
-				aux->getHD()->setHI(y2->clone());
-				this->setHD(aux->getHD());
-				this->setHI(aux->getHI());
-				this->setPalabra(aux->getPalabra());
-				this->setRepeticiones(aux->getRepeticiones());
+			if(y1 != NULL && y2 != NULL){
+				if(k2->getAlturaNodo() - 1 > z->getAlturaNodo() && k3->getAlturaNodo() > x->getAlturaNodo()){
+					//DO ROTATE
+					cout << "se ha generado el caso 3\n\n";
+					aux = k3->clone();
+					aux->setHI(k2->clone());
+					aux->setHD(k1->clone());
+					aux->getHI()->setHD(y1->clone());
+					aux->getHD()->setHI(y2->clone());
+					this->setHD(aux->getHD());
+					this->setHI(aux->getHI());
+					this->setPalabra(aux->getPalabra());
+					this->setRepeticiones(aux->getRepeticiones());
+				}
 			}
 		}	
 	}
@@ -156,18 +158,20 @@ void Nodo::caso4(){
 		if (k3 != NULL && x != NULL){
 			Nodo * y1 = k3->getHI();
 			Nodo * y2 = k3->getHD();
-			if(y1 != NULL && y2 != NULL && k2->getAlturaNodo() - 1 > z->getAlturaNodo() && k3->getAlturaNodo() > x->getAlturaNodo()){
-				//DO ROTATE
-				cout << "Se ha generado el caso 4\n\n";
-				aux = k3->clone();
-				aux->setHI(k1->clone());
-				aux->getHI()->setHD(y1);
-				aux->setHD(k2->clone());
-				aux->getHD()->setHI(y2);
-				this->setHI(aux->getHI());
-				this->setHD(aux->getHD());
-				this->setPalabra(aux->getPalabra());
-				this->setRepeticiones(aux->getRepeticiones());
+			if(y1 != NULL && y2 != NULL){
+				if(k2->getAlturaNodo() - 1 > z->getAlturaNodo() && k3->getAlturaNodo() > x->getAlturaNodo()){
+					//DO ROTATE
+					cout << "Se ha generado el caso 4\n\n";
+					aux = k3->clone();
+					aux->setHI(k1->clone());
+					aux->getHI()->setHD(y1);
+					aux->setHD(k2->clone());
+					aux->getHD()->setHI(y2);
+					this->setHI(aux->getHI());
+					this->setHD(aux->getHD());
+					this->setPalabra(aux->getPalabra());
+					this->setRepeticiones(aux->getRepeticiones());
+				}
 			}
 		}
 	}
