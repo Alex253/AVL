@@ -15,6 +15,17 @@ class AVL{
 		bool search(string p, Nodo * origen);
 		void balancear(Nodo * nod);
 		void insertar(string p, Nodo * origen);
+		void graph(Nodo *nodo, int n){
+			int i;
+			if(nodo != NULL){
+				graph(nodo->getHD(), n+1);
+				for (i = 1 ; i <= n ; i++){
+					cout << "\t";
+				}
+				cout << nodo->getPalabra() << "\n";
+				graph(nodo->getHI(), n+1);
+			}
+		}
 		
 		//getters
 		Nodo * getRaiz();
@@ -64,8 +75,9 @@ bool AVL::search(string p, Nodo * origen){
 void AVL::balancear(Nodo * nod){
 	if(nod != NULL){
 		this->balancear(nod->getHI());
-		this->balancear(nod->getHD());
 		nod->balancear();
+		this->balancear(nod->getHD());
+		
 	}
 	return;
 }
