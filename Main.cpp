@@ -20,6 +20,9 @@ int main(){
 	avl->toPrint(avl->getRaiz());
 	
 	cout << "\n---\n$:> " << avl->getRaiz()->getPalabra();
+	
+	//cout << "\n\n\t***GRAPH***\n\n";
+	//avl->graph(avl->getRaiz(),0);
 }
 
 void leerArchivo(AVL * avl, string archivo){
