@@ -23,7 +23,7 @@ class AVL{
 			if(nodo != NULL){
 				graph(nodo->getHD(), n+1);
 				for (i = 1 ; i <= n ; i++){
-					cout << "\t";
+					cout << "\t\t";
 				}
 				cout << nodo->getPalabra() << "\n";
 				graph(nodo->getHI(), n+1);
