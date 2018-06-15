@@ -6,8 +6,6 @@ using namespace std;
 
 /* --- PROTOTYPE FUNCTIONS --- */
 void leerArchivo(AVL *avl, string archivo);
-void caso1test();
-void caso2test();
 
 int main(){
 	string archivo;
