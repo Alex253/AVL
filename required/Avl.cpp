@@ -1,4 +1,6 @@
 #include "Nodo.cpp"
+#include <string>
+
 using namespace std;
 class AVL{
 	private:
@@ -9,9 +11,10 @@ class AVL{
 		AVL();
 		AVL(Nodo * n);
 		AVL(string palabra);
+		void guardarArchivo();
 		
 		//metodos generales
-		void toPrint(Nodo *n);
+		string toPrint(Nodo *n, string cadena);
 		bool search(string p, Nodo * origen);
 		void balancear(Nodo * nod);
 		void insertar(string p, Nodo * origen);
@@ -46,14 +49,32 @@ AVL::AVL(string cadena){
 	this->raiz = new Nodo(cadena);
 }
 
-void AVL::toPrint(Nodo * n){
+void AVL::guardarArchivo(){
+	string nombre = "";
+	do{
+		cout << "Ingrese el nombre del archivo para guardar: ";
+		cin >> nombre;
+	}while(nombre == "");
+	ofstream salida(nombre.c_str());
+	salida << this->toPrint(this->getRaiz(),"");
+	salida.close();
+}
+
+string AVL::toPrint(Nodo * n, string cadena = ""){
 	//IMPRIME IZQUIERDA, NODO, DERECHA (ORDEN ALFABETICO)
 	if(n != NULL){
-		toPrint(n->getHI());
-		cout << "\n" << n->getPalabra() << "(" <<n->getRepeticiones() << ")" << endl;
-		toPrint(n->getHD());
+		//agrega el hijo izquierdo
+		cadena.append(toPrint(n->getHI(), ""));
+		//cout << "\n" << n->getPalabra() << "(" <<n->getRepeticiones() << ")" << endl;
+		//se agrega a si mismo
+		cadena.append(n->getPalabra())
+		 .append(":\t")
+		 .append(to_string(n->getRepeticiones()))
+		 .append("\n");
+		//agrega al hijo derecho
+		cadena.append(toPrint(n->getHD(), ""));
 	}
-	return;
+	return cadena;
 }
 
 bool AVL::search(string p, Nodo * origen){
