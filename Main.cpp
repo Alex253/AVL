@@ -17,10 +17,10 @@ int main(){
 		cin >> archivo;
 	}while(archivo == "");
 	leerArchivo(avl,archivo);
-	avl->toPrint(avl->getRaiz());
+	//avl->toPrint(avl->getRaiz()); //El metodo ya no imprime
+	avl->guardarArchivo();
 	
-	cout << "\n---\n$:> " << avl->getRaiz()->getPalabra();
-	
+	//cout << "\n---\n$:> " << avl->getRaiz()->getPalabra();
 	//cout << "\n\n\t***GRAPH***\n\n";
 	//avl->graph(avl->getRaiz(),0);
 }
